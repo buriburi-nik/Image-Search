@@ -14,6 +14,7 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f9;
+            height: 100vh;
         }
 
         header {
@@ -24,6 +25,7 @@
             font-family: 'Permanent Marker', cursive;
             text-shadow: 3px 3px 0 #000;
             box-shadow: 4px 4px 0 #000;
+            
         }
 
         header h1 {
@@ -115,7 +117,7 @@
             background: rgba(0, 0, 0, 0.5);
             color: #fff;
             padding: 5px;
-            border-radius: 50%;
+            border-radius: 30%;
             cursor: pointer;
             font-size: 1.2rem;
         }
@@ -166,6 +168,7 @@
             align-items: center;
             z-index: 1000;
         }
+        
 
         .lightbox img {
             max-width: 90%;
@@ -181,6 +184,14 @@
 
 
         @media (max-width: 768px) {
+
+                #signup-button {
+        padding: 12px 20px; /* Smaller padding for mobile screens */
+        font-size: 1.2rem; /* Increase font size for readability on small devices */
+        width: 100%; /* Make button width 100% to fit the screen */
+    }
+
+
             header h1 {
                 font-size: 1.5rem; display: none !important;
             }
@@ -228,6 +239,75 @@
             }
         }
 
+
+        .sign-up-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .modal h2 {
+            color: #ff0000;
+            text-decoration: underline;
+        }
+
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            color: black;
+            text-shadow: none;
+            background-color: rgba(0, 0, 0, 0.5); 
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: 600px;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: rgb(254, 5, 5);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-input {
+            margin-bottom: 15px;
+            width: 80%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            width: 60%;
+            cursor: pointer;
+        }
         
     </style>
 </head>
@@ -245,7 +325,30 @@
                 <input type="text" id="search-input" placeholder="Search for images...">
                 <button id="search-button">Search</button>
             </div>
-            <button id="signup-button">Sign Up</button>
+            <button class="sign-up-btn" onclick="openModal()">Sign Up</button>
+            
+            <div class="modal" id="signUpModal">
+                <div class="modal-content">
+                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                    <h2>Sign Up</h2>
+                    <form id="signUpForm">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" class="form-input" placeholder="Enter your first name" required><br>
+            
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" class="form-input" placeholder="Enter your last name" required><br>
+            
+                        <label for="email">Your Email:</label>
+                        <input type="email" id="email" class="form-input" placeholder="Enter your email" required><br>
+            
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" class="form-input" placeholder="Enter your password" required><br>
+            
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <!--  -->
         </div>
     </header>
 
@@ -255,9 +358,8 @@
         <button id="show-more-button" style="display: none;">Show More</button>
     </div>
 
-    <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
-        <img src="" alt="Lightbox Image" id="lightbox-img">
+        <img src="./burger.png" alt="Lightbox Image" id="lightbox-img">
     </div>
 
     <script>
@@ -351,6 +453,26 @@
             currentPage++;
             fetchImages(currentSearchTerm, currentPage);
         });
+
+        function openModal() {
+                document.getElementById("signUpModal").style.display = "block";
+            }
+
+            function closeModal() {
+                document.getElementById("signUpModal").style.display = "none";
+            }
+
+            window.onclick = function (event) {
+                if (event.target == document.getElementById("signUpModal")) {
+                    closeModal();
+                }
+            };
+
+            document.getElementById("signUpForm").addEventListener("submit", function (event) {
+                event.preventDefault();
+                alert("Sign up successful!");
+                closeModal();
+            });
     </script>
 </body>
 
