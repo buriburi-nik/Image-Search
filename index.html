@@ -23,14 +23,15 @@
             color: #ff0000;
             font-family: 'Permanent Marker', cursive;
             text-shadow: 3px 3px 0 #000;
-              box-shadow: 4px 4px 0 #000;
+            box-shadow: 4px 4px 0 #000;
         }
 
         header h1 {
             font-size: 1.5rem;
         }
+
         .search-container {
-             display: flex;
+            display: flex;
             justify-content: space-between;
             align-items: center;
             margin: 20px;
@@ -38,7 +39,7 @@
             margin: 0 auto;
         }
 
-        .search-container input{
+        .search-container input {
             background: #ecebea;
             border: 3px solid #ffffff;
             border-radius: 15px;
@@ -77,6 +78,7 @@
         #signup-button:hover {
             background-color: #0056b3;
         }
+
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -176,73 +178,57 @@
             display: flex;
         }
 
+
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem; display: none !important;
+            }
+
+            .search-container {
+                flex-direction: column;
+                align-items: flex-start;
+                margin: 10px;
+            }
+
+            .search{
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+                align-items: center;
+                width: 100%;
+                
+            }
+
+            .search-container input
+            {
+                width: 60%;
+                margin: 5px 0;
+            }
+
+            .search-container button {
+                width: 30%;
+            }
+            #signup-button {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .gallery div {
+                transition: transform 0.2s ease;
+            }
+
+            .show-more-container {
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+
         
-
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 1.5rem;
-    }
-
-    .search-container {
-        flex-direction: column;
-        align-items: flex-start;
-        margin: 10px;
-    }
-
-    .search-container input,
-    .search-container button {
-        width: 100%;
-        margin: 5px 0;
-    }
-
-    #signup-button {
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-    }
-
-    .gallery div {
-        transition: transform 0.2s ease;
-    }
-
-    .show-more-container {
-        bottom: 10px;
-        right: 10px;
-    }
-}
-        
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 1.2rem;
-    }
-
-    .search-container input,
-    .search-container button,
-    #signup-button {
-        padding: 8px 15px;
-        font-size: 0.9rem;
-    }
-
-    .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
-    }
-
-    .favorite {
-        font-size: 1rem; 
-    }
-
-    .loading {
-        font-size: 16px;
-    }
-
-    .show-more-container button {
-        padding: 8px 15px;
-    }
-}
-
     </style>
 </head>
 
@@ -251,15 +237,16 @@
         <h1>Image Search Project</h1>
     </header> -->
     <header>
-    <div class="search-container">
-        <div class="logo">
-            <h1>Art Logo</h1>
+        <div class="search-container">
+            <div class="logo">
+                <h1>Art Logo</h1>
+            </div>
+            <div class="search">
+                <input type="text" id="search-input" placeholder="Search for images...">
+                <button id="search-button">Search</button>
+            </div>
+            <button id="signup-button">Sign Up</button>
         </div>
-        <div>
-        <input type="text" id="search-input" placeholder="Search for images...">
-        <button id="search-button">Search</button></div>
-        <button id="signup-button">Sign Up</button>
-    </div>
     </header>
 
     <div class="gallery" id="gallery"></div>
