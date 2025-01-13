@@ -175,6 +175,74 @@
         .lightbox:target {
             display: flex;
         }
+
+        
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .search-container {
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 10px;
+    }
+
+    .search-container input,
+    .search-container button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    #signup-button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    }
+
+    .gallery div {
+        transition: transform 0.2s ease;
+    }
+
+    .show-more-container {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+        
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.2rem;
+    }
+
+    .search-container input,
+    .search-container button,
+    #signup-button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+    }
+
+    .favorite {
+        font-size: 1rem; 
+    }
+
+    .loading {
+        font-size: 16px;
+    }
+
+    .show-more-container button {
+        padding: 8px 15px;
+    }
+}
+
     </style>
 </head>
 
