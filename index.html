@@ -4,69 +4,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Search</title>
+    <title>Image Search Project</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Luckiest Guy', cursive;
             margin: 0;
             padding: 0;
             background-color: #f4f4f9;
-            color: #333;
         }
 
         header {
             text-align: center;
-            padding: 20px;
-            background: #0073e6;
-            color: white;
-        }
-
-        .search-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .search-container input {
             padding: 10px;
-            width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            background: #9381FF;
+            color: #ff0000;
+            font-family: 'Permanent Marker', cursive;
+            text-shadow: 3px 3px 0 #000;
+              box-shadow: 4px 4px 0 #000;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+        }
+        .search-container {
+             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .search-container input{
+            background: #ecebea;
+            border: 3px solid #ffffff;
+            border-radius: 15px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 4px 4px 0 #000;
+            font-family: 'Luckiest Guy', cursive;
+            margin-right: 1rem;
         }
 
         .search-container button {
-            padding: 10px 15px;
-            margin-left: 10px;
-            background-color: #0073e6;
-            color: white;
-            border: none;
-            border-radius: 5px;
+            background: #ffe066;
+            border: 3px solid #ffffff;
+            border-radius: 15px;
+            padding: 10px 20px;
+            font-size: 1rem;
             cursor: pointer;
+            box-shadow: 4px 4px 0 #000;
+            font-family: 'Luckiest Guy', cursive;
         }
 
         .search-container button:hover {
             background-color: #005bb5;
         }
 
+        #signup-button {
+            background-color: #007bff;
+            border: 3px solid #ffffff;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        #signup-button:hover {
+            background-color: #0056b3;
+        }
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 15px;
             padding: 20px;
             margin: 0 auto;
             max-width: 1200px;
         }
 
-        .gallery img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s;
+        .gallery div {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
         }
 
-        .gallery img:hover {
-            transform: scale(1.05);
+        .gallery div:hover {
+            transform: translateY(-10px);
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures images fill the grid container */
+            border-radius: 5px;
+        }
+
+        .favorite {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 5px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .favorite:hover {
+            background: rgba(0, 0, 0, 0.7);
         }
 
         .loading {
@@ -77,37 +130,79 @@
         }
 
         .show-more-container {
-            text-align: center;
-            margin: 20px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            margin: 0;
         }
 
         .show-more-container button {
+            background: #ffe066;
+            border: 3px solid #000;
+            border-radius: 15px;
             padding: 10px 20px;
-            background-color: #0073e6;
-            color: white;
-            border: none;
-            border-radius: 5px;
+            font-size: 1rem;
             cursor: pointer;
+            box-shadow: 4px 4px 0 #000;
+            font-family: 'Luckiest Guy', cursive;
         }
 
         .show-more-container button:hover {
             background-color: #005bb5;
         }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox:target {
+            display: flex;
+        }
     </style>
 </head>
 
 <body>
-    <header>
+    <!-- <header>
         <h1>Image Search Project</h1>
-    </header>
+    </header> -->
+    <header>
     <div class="search-container">
+        <div class="logo">
+            <h1>Art Logo</h1>
+        </div>
+        <div>
         <input type="text" id="search-input" placeholder="Search for images...">
-        <button id="search-button">Search</button>
+        <button id="search-button">Search</button></div>
+        <button id="signup-button">Sign Up</button>
     </div>
+    </header>
+
     <div class="gallery" id="gallery"></div>
     <div class="loading" id="loading" style="display: none;">Loading...</div>
     <div class="show-more-container">
         <button id="show-more-button" style="display: none;">Show More</button>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <img src="" alt="Lightbox Image" id="lightbox-img">
     </div>
 
     <script>
@@ -116,9 +211,12 @@
         const gallery = document.getElementById('gallery');
         const loading = document.getElementById('loading');
         const showMoreButton = document.getElementById('show-more-button');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
 
         let currentPage = 1;
         let currentSearchTerm = '';
+        const favorites = new Set();
         const apiKey = 'lo_QHb28h3T0CNSUP_id4MPuw65d-J26XhrTwTxMm8o';
 
         const fetchImages = async (query, page) => {
@@ -136,19 +234,14 @@
             }
         };
 
-       const displayImages = (images) => {
-            if (currentPage === 1) gallery.innerHTML = ''; 
+        const displayImages = (images) => {
+            if (currentPage === 1) gallery.innerHTML = ''; // Clear gallery on new search
             images.forEach(image => {
-                const wrapper = document.createElement('div'); 
-                wrapper.style.textAlign = 'center';
-                wrapper.style.marginBottom = '10px';
-
+                const wrapper = document.createElement('div');
                 const imgElement = document.createElement('img');
                 imgElement.src = image.urls.small;
                 imgElement.alt = image.alt_description || 'Image';
-                imgElement.style.borderRadius = '5px';
-                imgElement.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
-                imgElement.style.maxWidth = '100%';
+                imgElement.onclick = () => showLightbox(image.urls.full);
 
                 const linkElement = document.createElement('a');
                 linkElement.href = image.links.html;
@@ -159,11 +252,36 @@
                 linkElement.style.textDecoration = 'none';
                 linkElement.textContent = `Photo by ${image.user.name}`;
 
+                const favoriteElement = document.createElement('span');
+                favoriteElement.textContent = '★ Favorite';
+                favoriteElement.className = 'favorite';
+                favoriteElement.onclick = () => toggleFavorite(image.id);
+
                 wrapper.appendChild(imgElement);
                 wrapper.appendChild(linkElement);
+                wrapper.appendChild(favoriteElement);
 
                 gallery.appendChild(wrapper);
             });
+        };
+
+        const toggleFavorite = (id) => {
+            if (favorites.has(id)) {
+                favorites.delete(id);
+                alert('Removed from favorites.');
+            } else {
+                favorites.add(id);
+                alert('Added to favorites!');
+            }
+        };
+
+        const showLightbox = (imgSrc) => {
+            lightboxImg.src = imgSrc;
+            lightbox.style.display = 'flex';
+        };
+
+        lightbox.onclick = () => {
+            lightbox.style.display = 'none';
         };
 
         searchButton.addEventListener('click', () => {
